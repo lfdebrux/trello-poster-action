@@ -1,0 +1,11 @@
+name: 'GitHub Trello Poster'
+description: 'Link a pull request to a Trello card'
+inputs:
+  comment-body:
+    required: true
+  github-url:
+    required: true
+  trello-api-token:
+    required: true
+  trello-api-key:
+    required: true

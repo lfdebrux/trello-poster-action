@@ -1,0 +1,25 @@
+{
+  "name": "trello-poster-action",
+  "version": "1.0.0",
+  "description": "A GitHub action that automatically adds pull request links to Trello cards",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lfdebrux/trello-poster-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lfdebrux/trello-poster-action/issues"
+  },
+  "homepage": "https://github.com/lfdebrux/trello-poster-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/http-client": "^2.1.0"
+  }
+}
