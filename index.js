@@ -7,8 +7,14 @@ try {
   const commentBody = core.getInput('comment-body')
   const githubUrl = core.getInput('github-url')
   const trelloApiToken = core.getInput('trello-api-token')
+  if (trelloApiToken === '') {
+    core.warning('trello-api-token is empty!')
+  }
   core.setSecret(trelloApiToken)
   const trelloApiKey = core.getInput('trello-api-key')
+  if (trelloApiToken === '') {
+    core.warning('trello-api-key is empty!')
+  }
   core.setSecret(trelloApiKey)
 
   function trelloApiUrl(endpoint) {
