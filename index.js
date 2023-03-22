@@ -18,7 +18,7 @@ try {
     return url.toString()
   }
 
-  const match = pullRequestBody?.match(trelloCardUrlRe)
+  const match = commentBody?.match(trelloCardUrlRe)
   if (match) {
     const http = new HttpClient('trello-poster-action')
     const trelloCardUrl = match[0]
@@ -27,12 +27,12 @@ try {
     const { result: trelloCardAttachments } = await http.getJson(
       trelloApiUrl(`/cards/${trelloCardId}/attachments?fields=url`)
     )
-    if (trelloCardAttachments.find((attachment) => attachment.url.startsWith(pullRequestUrl))) {
+    if (trelloCardAttachments.find((attachment) => attachment.url.startsWith(githubUrl))) {
       // nothing to do, break out
       core.info(`Trello card ${trelloCardUrl} already has GitHub link ${githubUrl} attached`)
     } else {
       await http.postJson(
-        trelloApiUrl(`/cards/${trelloCardId}/attachments?url=${pullRequestUrl}`)
+        trelloApiUrl(`/cards/${trelloCardId}/attachments?url=${githubUrl}`)
       )
       core.info(`Successfully attached GitHub link ${githubUrl} to Trello card ${trelloCardUrl}`)
     }
