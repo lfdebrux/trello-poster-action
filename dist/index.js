@@ -2769,8 +2769,14 @@ try {
   const commentBody = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('comment-body')
   const githubUrl = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('github-url')
   const trelloApiToken = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('trello-api-token')
+  if (trelloApiToken === '') {
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.warning('trello-api-token is empty!')
+  }
   _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(trelloApiToken)
   const trelloApiKey = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('trello-api-key')
+  if (trelloApiToken === '') {
+    _actions_core__WEBPACK_IMPORTED_MODULE_0__.warning('trello-api-key is empty!')
+  }
   _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(trelloApiKey)
 
   function trelloApiUrl(endpoint) {
@@ -2780,7 +2786,7 @@ try {
     return url.toString()
   }
 
-  const match = pullRequestBody?.match(trelloCardUrlRe)
+  const match = commentBody?.match(trelloCardUrlRe)
   if (match) {
     const http = new _actions_http_client__WEBPACK_IMPORTED_MODULE_1__.HttpClient('trello-poster-action')
     const trelloCardUrl = match[0]
@@ -2789,12 +2795,12 @@ try {
     const { result: trelloCardAttachments } = await http.getJson(
       trelloApiUrl(`/cards/${trelloCardId}/attachments?fields=url`)
     )
-    if (trelloCardAttachments.find((attachment) => attachment.url.startsWith(pullRequestUrl))) {
+    if (trelloCardAttachments.find((attachment) => attachment.url.startsWith(githubUrl))) {
       // nothing to do, break out
       _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Trello card ${trelloCardUrl} already has GitHub link ${githubUrl} attached`)
     } else {
       await http.postJson(
-        trelloApiUrl(`/cards/${trelloCardId}/attachments?url=${pullRequestUrl}`)
+        trelloApiUrl(`/cards/${trelloCardId}/attachments?url=${githubUrl}`)
       )
       _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Successfully attached GitHub link ${githubUrl} to Trello card ${trelloCardUrl}`)
     }

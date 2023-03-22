@@ -1,6 +1,6 @@
 {
   "name": "trello-poster-action",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A GitHub action that automatically adds pull request links to Trello cards",
   "main": "index.js",
   "type": "module",
