@@ -2,6 +2,27 @@
 
 A GitHub action that attaches GitHub links to Trello cards.
 
+## Quickstart
+
+If you want to want to make sure PRs that mention Trello cards are attached to those Trello cards, add the following workflow your repo:
+
+```yaml
+name: Trello Poster
+on:
+  pull-request:
+    types: [created, edited]
+jobs:
+  trello-poster:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: lfdebrux/github-trello-poster@<SHA>
+        with:
+          comment-body: ${{ github.event.pull_request.body }}
+          github-url: ${{ github.event.pull_request.url }}
+          trello-api-token: ${{ secrets.TRELLO_API_TOKEN }}
+          trello-api-key: ${{ secrets.TRELLO_API_KEY }}
+```
+
 ## Trello API key and token
 
 The Trello API requires that the calls provide both an API key and token. See the [Trello API documentation](https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/#managing-your-api-key) for more details.
