@@ -9,3 +9,6 @@ inputs:
     required: true
   trello-api-key:
     required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
