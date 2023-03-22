@@ -2766,8 +2766,8 @@ __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependen
 const trelloCardUrlRe = 'https://trello.com/c/(\\w{8})'
 
 try {
-  const pullRequestBody = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('pull-request-body')
-  const pullRequestUrl = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('pull-request-url')
+  const commentBody = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('comment-body')
+  const githubUrl = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('github-url')
   const trelloApiToken = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('trello-api-token')
   _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(trelloApiToken)
   const trelloApiKey = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('trello-api-key')
@@ -2791,12 +2791,12 @@ try {
     )
     if (trelloCardAttachments.find((attachment) => attachment.url.startsWith(pullRequestUrl))) {
       // nothing to do, break out
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Trello card ${trelloCardUrl} already has PR ${pullRequestUrl} attached`)
+      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Trello card ${trelloCardUrl} already has GitHub link ${githubUrl} attached`)
     } else {
       await http.postJson(
         trelloApiUrl(`/cards/${trelloCardId}/attachments?url=${pullRequestUrl}`)
       )
-      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Successfully attached PR ${pullRequestUrl} to Trello card ${trelloCardUrl}`)
+      _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Successfully attached GitHub link ${githubUrl} to Trello card ${trelloCardUrl}`)
     }
   }
 } catch (error) {
