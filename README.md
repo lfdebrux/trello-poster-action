@@ -9,16 +9,16 @@ If you want to want to make sure PRs that mention Trello cards are attached to t
 ```yaml
 name: Trello Poster
 on:
-  pull-request:
+  pull_request:
     types: [created, edited]
 jobs:
   trello-poster:
     runs-on: ubuntu-latest
     steps:
-      - uses: lfdebrux/github-trello-poster@<SHA>
+      - uses: lfdebrux/trello-poster-action@<SHA>
         with:
           comment-body: ${{ github.event.pull_request.body }}
-          github-url: ${{ github.event.pull_request.url }}
+          github-url: ${{ github.event.pull_request.html_url }}
           trello-api-token: ${{ secrets.TRELLO_API_TOKEN }}
           trello-api-key: ${{ secrets.TRELLO_API_KEY }}
 ```
