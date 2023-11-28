@@ -5,6 +5,9 @@ inputs:
     required: true
   github-url:
     required: true
+  attachment-name:
+    description: 'The display text to use in Trello. If not supplied, Trello will default to using the URL.'
+    required: false
   trello-api-token:
     required: true
   trello-api-key:
