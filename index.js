@@ -27,11 +27,15 @@ try {
       url.searchParams.set(key, value)
     }
 
+    core.debug(url.toString())
+
     return url.toString()
   }
 
   const match = commentBody?.match(trelloCardUrlRe)
   if (match) {
+    core.debug(`Found Trello card link ${match[0]}`)
+
     const http = new HttpClient('trello-poster-action')
     const trelloCardUrl = match[0]
     const trelloCardId = match[1]
@@ -39,6 +43,8 @@ try {
     const { result: trelloCardAttachments } = await http.getJson(
       trelloApiUrl(`/cards/${trelloCardId}/attachments`, {"fields": "url"})
     )
+    core.debug(`Trello card has existing attachments ${JSON.stringify(trelloCardAttachments)}`)
+
     if (trelloCardAttachments.find((attachment) => attachment.url.startsWith(githubUrl))) {
       // nothing to do, break out
       core.info(`Trello card ${trelloCardUrl} already has GitHub link ${githubUrl} attached`)
@@ -55,6 +61,7 @@ try {
         params.name = attachmentName.substring(0, 257)
       }
 
+      core.debug(`POST /cards/${trelloCardId}/attachments ${JSON.stringify(params)}`)
       await http.postJson(
         trelloApiUrl(`/cards/${trelloCardId}/attachments`, params)
       )
