@@ -23,7 +23,7 @@ try {
     url.searchParams.set('key', trelloApiKey)
     url.searchParams.set('token', trelloApiToken)
 
-    for(const [key, value] in Object.entries(urlParams || {})) {
+    for(const [key, value] of Object.entries(urlParams || {})) {
       url.searchParams.set(key, value)
     }
 
@@ -55,7 +55,7 @@ try {
 
       if (attachmentName != null) {
         // Name parameter can be maximum 256 characters, so trim it to that
-        if (attachmentName.len() > 256) {
+        if (attachmentName.length > 256) {
           core.info("'attachment-name' property can be a maximum of 256 characters. Truncating.")
         }
         params.name = attachmentName.substring(0, 257)
