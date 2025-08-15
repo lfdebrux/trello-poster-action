@@ -37,8 +37,18 @@ try {
     core.debug(`Found Trello card link ${match[0]}`)
 
     const http = new HttpClient('trello-poster-action')
-    const trelloCardUrl = match[0]
-    const trelloCardId = match[1]
+    let trelloCardUrl = match[0]
+    let trelloCardId = match[1]
+
+    // handle mirror cards
+    const { result: trelloCard } = await http.getJson(
+      trelloApiUrl(`/cards/${trelloCardId}`)
+    )
+    if (trelloCard.cardRole == "mirror") {
+      core.debug(`Trello card is a mirror card for ${trelloCard.name}, updating that card instead`)
+      trelloCardUrl = trelloCard.name
+      trelloCardId = trelloCard.mirrorSourceId
+    }
 
     const { result: trelloCardAttachments } = await http.getJson(
       trelloApiUrl(`/cards/${trelloCardId}/attachments`, {"fields": "url"})
