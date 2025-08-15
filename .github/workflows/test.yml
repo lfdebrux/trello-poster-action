@@ -1,12 +1,14 @@
-name: Trello Poster
+name: Test
 on:
   pull_request:
-    types: [created, edited]
+    types: [created, edited, synchronize]
 jobs:
   trello-poster:
     runs-on: ubuntu-latest
     steps:
-      - uses: lfdebrux/trello-poster-action@main
+      - uses: actions/checkout@v4
+      - name: lfdebrux/trello-poster-action@HEAD
+        uses: ./
         with:
           comment-body: ${{ github.event.pull_request.body }}
           github-url: ${{ github.event.pull_request.html_url }}
