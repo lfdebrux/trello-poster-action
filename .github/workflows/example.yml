@@ -1,21 +1,16 @@
-name: Test
+name: Trello Poster
 on:
   pull_request:
     types: [created, edited, synchronize]
+env:
+  ACTIONS_STEP_DEBUG: true
 jobs:
   trello-poster:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: lfdebrux/trello-poster-action@test
         with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - name: lfdebrux/trello-poster-action@HEAD
-        uses: ./
-        with:
+          attachment-name: ${{ github.event.pull_request.title }}
           comment-body: ${{ github.event.pull_request.body }}
           github-url: ${{ github.event.pull_request.html_url }}
           trello-api-token: ${{ secrets.TRELLO_API_TOKEN }}

@@ -2,6 +2,8 @@
 
 A GitHub action that attaches GitHub links to Trello cards.
 
+As an example, see PR #1.
+
 ## Quickstart
 
 If you want to want to make sure PRs that mention Trello cards are attached to those Trello cards, add the following workflow your repo:
