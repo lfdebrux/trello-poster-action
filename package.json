@@ -24,6 +24,6 @@
     "@actions/http-client": "^4.0.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.4"
+    "@vercel/ncc": "^0.44.1"
   }
 }
